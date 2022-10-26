@@ -1,11 +1,15 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import CoursesCard from "../../Shared/CoursesCard/CoursesCard";
 
 const Home = () => {
-  const news = useLoaderData();
+  const allNews = useLoaderData();
   return (
     <div>
-      <h2>Web Technology: {news.length}</h2>
+      <h2>Web Technology: {allNews.length}</h2>
+      {allNews.map((news) => (
+        <CoursesCard key={news.id} news={news}></CoursesCard>
+      ))}
     </div>
   );
 };
