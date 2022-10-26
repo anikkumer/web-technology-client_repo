@@ -17,7 +17,7 @@ const FAQ = () => {
         </Accordion.Item>
         <Accordion.Item eventKey="1">
           <Accordion.Header>
-            2. Why should we learn web technoloy?
+            2. Why should we learn web technology?
           </Accordion.Header>
           <Accordion.Body>
             Web development gives you the opportunity to express yourself
