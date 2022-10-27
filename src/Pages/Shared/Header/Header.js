@@ -8,10 +8,18 @@ import Card from "react-bootstrap/Card";
 import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { FaUser } from "react-icons/fa";
-import { Image } from "react-bootstrap";
+// import { Image } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
 
   return (
     <Navbar
@@ -22,13 +30,11 @@ const Header = () => {
       variant="dark"
     >
       <Container>
-        <Card.Img
-          variant="top"
-          height="80px"
-          weight="120px"
-          src="https://www.rajeshgarapati.com/wp-content/uploads/2020/02/1489214473_VJzBfR_Web-tech.jpg"
-        />
         <Navbar.Brand>
+          <Image
+            width="40px"
+            src="https://www.rajeshgarapati.com/wp-content/uploads/2020/02/1489214473_VJzBfR_Web-tech.jpg"
+          ></Image>
           <Link to="/home">Web-Technology</Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -40,13 +46,27 @@ const Header = () => {
             <Nav.Link href="/blog">Blog</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="/user">{user?.displayName}</Nav.Link>
-            <Nav.Link eventKey={2} href="/image">
-              {user.photoURL ? (
+            <Nav.Link href="">
+              {user?.id ? (
+                <>
+                  <span>{user?.displayName}</span>
+                  <Button variant="info" onClick={handleLogOut}>
+                    Log out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/register">Register</Link>
+                </>
+              )}
+            </Nav.Link>
+            <Nav.Link eventKey={2} href="">
+              {user?.photoURL ? (
                 <Image
                   style={{ height: "50px" }}
                   roundedCircle
-                  src={user.photoURL}
+                  src={user?.photoURL}
                 ></Image>
               ) : (
                 <FaUser></FaUser>
