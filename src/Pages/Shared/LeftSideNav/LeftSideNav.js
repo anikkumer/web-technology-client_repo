@@ -7,7 +7,12 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
-import { GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 
 const LeftSideNav = () => {
   const [courses, setCourses] = useState([]);
@@ -15,6 +20,20 @@ const LeftSideNav = () => {
   const { providerLogin } = useContext(AuthContext);
 
   const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
+  const auth = getAuth();
+  const handleGithubSignIn = () => {
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        const user = result.user;
+        // setUser(user)
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error("error:", error);
+      });
+  };
 
   const handleGoogleSignIn = () => {
     providerLogin(googleProvider)
@@ -45,7 +64,11 @@ const LeftSideNav = () => {
       {/* react bootstrap */}
       <div>
         <ButtonGroup vertical>
-          <Button className="mb-2" variant="outline-primary">
+          <Button
+            onClick={handleGithubSignIn}
+            className="mb-2"
+            variant="outline-primary"
+          >
             <FaGithub></FaGithub> Login with Github
           </Button>
           <Button
@@ -55,9 +78,9 @@ const LeftSideNav = () => {
           >
             <FaGoogle></FaGoogle> Login with Google
           </Button>
-          <Button className="mb-2" variant="outline-warning">
+          {/* <Button className="mb-2" variant="outline-warning">
             <FaFacebook></FaFacebook> Login with Facebook
-          </Button>
+          </Button> */}
         </ButtonGroup>
       </div>
     </div>
