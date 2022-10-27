@@ -5,8 +5,14 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
 import Card from "react-bootstrap/Card";
+import { useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { FaUser } from "react-icons/fa";
+import { Image } from "react-bootstrap";
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <Navbar
       collapseOnSelect
@@ -34,9 +40,17 @@ const Header = () => {
             <Nav.Link href="/blog">Blog</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
+            <Nav.Link href="/user">{user?.displayName}</Nav.Link>
+            <Nav.Link eventKey={2} href="/image">
+              {user.photoURL ? (
+                <Image
+                  style={{ height: "50px" }}
+                  roundedCircle
+                  src={user.photoURL}
+                ></Image>
+              ) : (
+                <FaUser></FaUser>
+              )}
             </Nav.Link>
           </Nav>
           <div className="d-lg-none">

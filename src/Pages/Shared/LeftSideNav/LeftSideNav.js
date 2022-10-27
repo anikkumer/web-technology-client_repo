@@ -5,9 +5,25 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const LeftSideNav = () => {
   const [courses, setCourses] = useState([]);
+
+  const { providerLogin } = useContext(AuthContext);
+
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
 
   useEffect(() => {
     fetch("http://localhost:5000/news-categories")
@@ -32,7 +48,11 @@ const LeftSideNav = () => {
           <Button className="mb-2" variant="outline-primary">
             <FaGithub></FaGithub> Login with Github
           </Button>
-          <Button className="mb-2" variant="outline-success">
+          <Button
+            onClick={handleGoogleSignIn}
+            className="mb-2"
+            variant="outline-success"
+          >
             <FaGoogle></FaGoogle> Login with Google
           </Button>
           <Button className="mb-2" variant="outline-warning">
