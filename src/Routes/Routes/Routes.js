@@ -17,9 +17,9 @@ export const routes = createBrowserRouter([
     element: <Main></Main>,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5000/courses"),
+        loader: () => fetch("https://web-technology.onrender.com/courses"),
       },
       {
         path: "/courses",
@@ -28,13 +28,13 @@ export const routes = createBrowserRouter([
             <Courses></Courses>
           </PrivateRoute>
         ),
-        loader: () => fetch(`http://localhost:5000/courses`),
+        loader: () => fetch(`https://web-technology.onrender.com/courses`),
       },
       {
         path: "/courses/:id",
         element: <News></News>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/courses/${params.id}`),
+          fetch(`https://web-technology.onrender.com/courses/${params.id}`),
       },
       {
         path: "/blog",

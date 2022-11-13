@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 
 const Footer = () => {
   return (
-    <Card className="text-center" mb-2>
+    <Card className="text-center mt-2">
       <Card.Header>Web Technology Learning Courses</Card.Header>
       <Card.Body>
         <blockquote className="blockquote mb-0">

@@ -4,13 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
-import Card from "react-bootstrap/Card";
 import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { FaUser } from "react-icons/fa";
-// import { Image } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import { MDBSwitch } from "mdb-react-ui-kit";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -30,20 +29,29 @@ const Header = () => {
       variant="dark"
     >
       <Container>
-        <Navbar.Brand>
-          <Image
-            width="40px"
-            src="https://www.rajeshgarapati.com/wp-content/uploads/2020/02/1489214473_VJzBfR_Web-tech.jpg"
-          ></Image>
-          <Link to="/home">Web-Technology</Link>
+        <Navbar.Brand className="d-flex">
+          <Nav.Link href="/">
+            <Image
+              width="40px"
+              src="https://www.rajeshgarapati.com/wp-content/uploads/2020/02/1489214473_VJzBfR_Web-tech.jpg"
+            ></Image>
+          </Nav.Link>
+
+          <Link to="/">Web-Technology</Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/courses">Courses</Nav.Link>
             <Nav.Link href="/faq">FAQ</Nav.Link>
             <Nav.Link href="/blog">Blog</Nav.Link>
+          </Nav>
+          <Nav>
+            <MDBSwitch
+              id="flexSwitchCheckDefault"
+              label="Default switch checkbox input"
+            />
           </Nav>
           <Nav>
             <Nav.Link href="">
@@ -56,7 +64,9 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" className="me-2">
+                    Login
+                  </Link>
                   <Link to="/register">Register</Link>
                 </>
               )}
@@ -73,6 +83,7 @@ const Header = () => {
               )}
             </Nav.Link>
           </Nav>
+
           <div className="d-lg-none">
             <LeftSideNav></LeftSideNav>
           </div>

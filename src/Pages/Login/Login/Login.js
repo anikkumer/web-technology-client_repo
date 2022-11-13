@@ -4,6 +4,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import {
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -12,6 +20,34 @@ const Login = () => {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
+
+  const { providerLogin } = useContext(AuthContext);
+
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+
+  const auth = getAuth();
+
+  const handleGithubSignIn = () => {
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        const user = result.user;
+        // setUser(user)
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error("error:", error);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => console.error(error));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,6 +97,24 @@ const Login = () => {
         Login
       </Button>
       <Form.Text className="text-danger ">{error}</Form.Text>
+      <div>
+        <ButtonGroup vertical>
+          <Button
+            onClick={handleGithubSignIn}
+            className="mb-2"
+            variant="outline-primary"
+          >
+            <FaGithub></FaGithub> Login with Github
+          </Button>
+          <Button
+            onClick={handleGoogleSignIn}
+            className="mb-2"
+            variant="outline-success"
+          >
+            <FaGoogle></FaGoogle> Login with Google
+          </Button>
+        </ButtonGroup>
+      </div>
     </Form>
   );
 };
