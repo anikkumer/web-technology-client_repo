@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layout/Main";
 import Blog from "../../Pages/Blog/Blog/Blog";
+import Checkout from "../../Pages/Checkout/Checkout/Checkout";
 import Courses from "../../Pages/Courses/Courses/Courses";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import FAQ from "../../Pages/FAQ/FAQ/FAQ";
@@ -23,11 +24,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/courses",
-        element: (
-          <PrivateRoute>
-            <Courses></Courses>
-          </PrivateRoute>
-        ),
+        element: <Courses></Courses>,
         loader: () => fetch(`https://web-technology.onrender.com/courses`),
       },
       {
@@ -35,6 +32,16 @@ export const routes = createBrowserRouter([
         element: <News></News>,
         loader: ({ params }) =>
           fetch(`https://web-technology.onrender.com/courses/${params.id}`),
+      },
+      {
+        path: "/checkout/:id",
+        element: (
+          <PrivateRoute>
+            <Checkout></Checkout>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://web-technology.onrender.com/checkout/${params.id}`),
       },
       {
         path: "/blog",
