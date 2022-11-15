@@ -1,25 +1,25 @@
 import React from "react";
-import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { FaMoneyBillAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
-const Checkout = ({ news }) => {
-  const { id, name, picture, fee } = news;
+const Checkout = () => {
+  const checkout = useLoaderData();
+  const { name, details, picture, fee } = checkout;
+  console.log(checkout);
   return (
-    <Card className="mb-5">
-      <Card.Header className="text-center">{name}</Card.Header>
+    <div>
+      <Card className="mb-5"></Card>
+      <h1>
+        <Card.Header className="text-center">{name}</Card.Header>
+      </h1>
       <Card.Body>
         <Card.Img variant="top" src={picture} />
+        <Card.Text>{details}</Card.Text>
       </Card.Body>
-      <div>
-        <FaMoneyBillAlt className="text-warning"></FaMoneyBillAlt>
-        <span>{fee}</span>
+      <div className="text-center">
+        <h2>{fee}</h2>
       </div>
-      <Button>
-        <Link to={`/checkout/${id}`}>Get Premium Access</Link>
-      </Button>
-    </Card>
+    </div>
   );
 };
 

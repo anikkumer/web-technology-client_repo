@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaStar, FaMoneyBillAlt } from "react-icons/fa";
 
 const CoursesCard = ({ news }) => {
-  const { id, name, picture, fee, details, subs, index } = news;
+  const { id, name, picture, fee, details, subs } = news;
   console.log(news);
   return (
     <Card className="mb-5">

@@ -20,18 +20,20 @@ export const routes = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("https://web-technology.onrender.com/courses"),
+        loader: () => fetch("https://web-technology-server.vercel.app/courses"),
       },
       {
         path: "/courses",
         element: <Courses></Courses>,
-        loader: () => fetch(`https://web-technology.onrender.com/courses`),
+        loader: () => fetch(`https://web-technology-server.vercel.app/courses`),
       },
       {
         path: "/courses/:id",
         element: <News></News>,
         loader: ({ params }) =>
-          fetch(`https://web-technology.onrender.com/courses/${params.id}`),
+          fetch(
+            `https://web-technology-server.vercel.app/courses/${params.id}`
+          ),
       },
       {
         path: "/checkout/:id",
@@ -41,7 +43,9 @@ export const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://web-technology.onrender.com/checkout/${params.id}`),
+          fetch(
+            `https://web-technology-server.vercel.app/courses/${params.id}`
+          ),
       },
       {
         path: "/blog",

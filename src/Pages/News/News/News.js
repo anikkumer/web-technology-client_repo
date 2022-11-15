@@ -8,7 +8,7 @@ const News = () => {
   const ref = React.createRef();
 
   const news = useLoaderData();
-  const { name, details, picture } = news;
+  const { id, name, details, picture } = news;
   return (
     <Card>
       <Card.Img variant="top" src={picture} />
@@ -17,7 +17,7 @@ const News = () => {
           <Card.Title>{name}</Card.Title>
           <Card.Text>{details}</Card.Text>
         </div>
-        <Link to={`/courses`}>
+        <Link to={`/checkout/${id}`}>
           <Button variant="primary">Get Premium Access</Button>
         </Link>
         <Pdf targetRef={ref} filename="Details.pdf">
